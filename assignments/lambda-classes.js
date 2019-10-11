@@ -19,7 +19,7 @@ class Instructor extends Person {
         this.catchPhrase = instAttributes.catchPhrase;
     }
     demo(subject) {
-        return  `Today we are learning about ${this.subject}`;
+        return  `Today we are learning about ${subject}`;
     }
     grade(student, subject) {
         return `${student.name} receives a perfect score on ${subject}`;
@@ -35,33 +35,34 @@ class Student extends Person {
         this.grade = stAttributes.grade;
     }
     listsSubjects() {
-        this.favSubjects.map(item => console.log(item));
-        }
-    
+     for (let i = 0; i < this.favSubjects.length; i++){
+         console.log(this.favSubjects[i]);
+     }
+     }
+
     PRAssignment(student, subject) {
        return  `${student.name} has submitted a PR for ${subject}.`
     }
     springChallenge(student, subject) {
-        `${student.name} has begun sprint challenge on ${subject}.`
+        return `${student.name} has begun sprint challenge on ${subject}.`
     }
 }
-
 class SL extends Instructor {
     constructor(SLAttributes) {
         super(SLAttributes);
         this.gradClassName = SLAttributes.gradClassName;
         this.favInstructor = SLAttributes.favInstructor;
     }
-    standup() {
-        return `${this.name} announces to ${this.channel} @channel standy times!`;
+    standup(slack) {
+        return `${this.name} announces to ${slack} @channel standy times!`;
     }
-    debugsCode() {
-        return `${this.name} debugs ${student.name}'s code on ${this.subject}.`
+    debugsCode(student, subject) {
+        return `${this.name} debugs ${student.name}'s code on ${subject}.`
     }
 }
 
 // usage
-
+// person
 const Houston = new Instructor({
     name: 'Houston',
     age: 30,
@@ -80,6 +81,7 @@ const Theresa = new Instructor({
     favLanguage: 'Javascript',
     catchPhrase: 'As you Wish'
 });
+// students
 const Jordan = new Student({
     name: 'Jordan',
     age: 21,
@@ -96,7 +98,7 @@ const Ali = new Student({
     favSubjects: ['Python', 'Ruby'], 
     grade: 65,
 });
-
+// SLs
 const Anthony = new SL ({
     name: 'Anthony',
     age: 27,
@@ -105,9 +107,21 @@ const Anthony = new SL ({
     gradClassName: "WEBPT11",
     favInstructor: "Pace",
 });
-
-// logs
+const Zoey = new SL ({
+    name: 'Zoey',
+    age: 32,
+    location: "Bluffton",
+    gender: 'Female',
+    gradClassName: "UX-UI2",
+    favInstructor: "Brandi",
+});
+// tests
 
 console.log(Houston.speak());
 console.log(Theresa.grade(Jordan, "Javascript"));
-
+console.log(Houston.demo("Javascript"));
+console.log(Jordan.listsSubjects());
+console.log(Ali.PRAssignment(Ali, 'Javascript'));
+console.log(Jordan.springChallenge(Jordan, 'User-Interface-I'));
+console.log(Anthony.standup('WebPT11'));
+console.log(Zoey.debugsCode(Jordan, 'HTML'));
