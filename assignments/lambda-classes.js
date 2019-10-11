@@ -24,7 +24,18 @@ class Instructor extends Person {
     grade(student, subject) {
         return `${student.name} receives a perfect score on ${subject}`;
     }
+    gradeAdjust(student) {
+        let points = Math.round(Math.random() * 100);
+        if (student.grade >= 100) {
+            student.grade -= points;
+            return `${points} points are subtracted from ${student.name}'s grade. ${student.name}'s grade is ${student.grade}`;
+        } else {
+            student.grade += points;
+            return `${points} points are added to ${student.name}'s grade. ${student.name}'s current grade is ${Student.grade}`;
+        }
+    }
 }
+
 
 class Student extends Person {
     constructor (stAttributes) {
@@ -45,6 +56,15 @@ class Student extends Person {
     }
     springChallenge(student, subject) {
         return `${student.name} has begun sprint challenge on ${subject}.`
+    }
+    iGraduated() {
+        if (this.grade >= 75) {
+            return `${this.name} has graduated with a final grade of ${this.grade}!`;
+        } else {
+            let difference = 75 - this.grade;
+            this.grade += difference;
+            return `After more grading, ${difference} points were earned and ${this.name} has graduated with a final grade of ${this.grade}`;
+        }
     }
 }
 class SL extends Instructor {
@@ -96,7 +116,7 @@ const Ali = new Student({
     location: 'Ossian',
     gender: 'Female',
     favSubjects: ['Python', 'Ruby'], 
-    grade: 65,
+    grade: 100,
 });
 // SLs
 const Anthony = new SL ({
@@ -125,3 +145,6 @@ console.log(Ali.PRAssignment(Ali, 'Javascript'));
 console.log(Jordan.springChallenge(Jordan, 'User-Interface-I'));
 console.log(Anthony.standup('WebPT11'));
 console.log(Zoey.debugsCode(Jordan, 'HTML'));
+
+console.log(Zoey.gradeAdjust(Ali));
+console.log(Ali.iGraduated(Zoey));
